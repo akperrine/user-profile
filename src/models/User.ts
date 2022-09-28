@@ -1,5 +1,6 @@
 import { ApiSync } from "./ApiSync";
 import { Attributes } from "./Attributes";
+import { Collection } from "./Collection";
 import { Eventing } from "./Eventing";
 import { Model } from "./Model";
 
@@ -9,7 +10,8 @@ export interface UserProps {
   id?: number;
 }
 
-const rootUrl = "http://localhost:3000/users";
+export const rootUrl = "http://localhost:3000/users";
+const buildUserInstance = (json: UserProps): User => User.buildUser(json);
 
 export class User extends Model<UserProps> {
   static buildUser(attrs: UserProps) {
@@ -20,8 +22,12 @@ export class User extends Model<UserProps> {
     );
   }
 
-  get fullName() {
-    const name = this.get("id");
-    return console.log(name);
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection(rootUrl, buildUserInstance);
   }
+
+  //   get fullName() {
+  //     const name = this.get("id");
+  //     return console.log(name);
+  //   }
 }

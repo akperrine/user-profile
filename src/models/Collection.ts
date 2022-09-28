@@ -1,0 +1,33 @@
+import axios, { AxiosPromise, AxiosResponse } from "axios";
+import { Eventing } from "./Eventing";
+import { rootUrl } from "./User";
+
+interface Attributable {
+  id: number;
+}
+
+export class Collection<T, K> {
+  models: T[] = [];
+  events: Eventing = new Eventing();
+
+  constructor(public rootUrl: string, public deserialize: (json: K) => T) {}
+
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  fetch(): void {
+    axios.get(`${this.rootUrl}`).then((response: AxiosResponse) => {
+      response.data.forEach((value: K) => {
+        const instance = this.deserialize(value);
+        this.models.push(instance);
+      });
+
+      this.trigger("change");
+    });
+  }
+}
