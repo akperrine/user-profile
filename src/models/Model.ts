@@ -52,7 +52,6 @@ export class Model<T extends HasId> {
   }
 
   save(): void {
-    // const attrs = this.attributes.data;
     this.sync
       .save(this.attributes.getAll())
       .then((response: AxiosResponse): void => {

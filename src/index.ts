@@ -1,14 +1,13 @@
-import { User, UserProps } from "./models/User";
-import { Collection } from "./models/Collection";
-import axios, { AxiosResponse } from "axios";
-import { rootUrl } from "./models/User";
+import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 
-const user = User.buildUser({ id: 1 });
+const user = User.buildUser({ name: "Perrine", age: 20 });
 
-const collection = User.buildUserCollection();
+const root = document.getElementById("root");
 
-collection.on("change", () => {
-  console.log(collection);
-});
-
-collection.fetch();
+if (root) {
+  const userForm = new UserForm(root, user);
+  userForm.render();
+} else {
+  throw new Error("root element not found");
+}

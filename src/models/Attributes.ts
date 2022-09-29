@@ -2,9 +2,6 @@ export class Attributes<T> {
   constructor(public data: T) {}
 
   get = <K extends keyof T>(dataKey: K): T[K] => {
-    if (!this.data[dataKey]) {
-      return;
-    }
     return this.data[dataKey];
   };
 

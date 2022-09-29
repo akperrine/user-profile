@@ -26,8 +26,8 @@ export class User extends Model<UserProps> {
     return new Collection(rootUrl, buildUserInstance);
   }
 
-  //   get fullName() {
-  //     const name = this.get("id");
-  //     return console.log(name);
-  //   }
+  setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+    this.set({ age });
+  }
 }
