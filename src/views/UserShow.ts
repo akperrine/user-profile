@@ -2,10 +2,6 @@ import { User, UserProps } from "../models/User";
 import { View } from "./View";
 
 export class UserShow extends View<User, UserProps> {
-  check(): void {
-    console.log("work");
-  }
-
   template(): string {
     return `
        <div>
